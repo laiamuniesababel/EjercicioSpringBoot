@@ -2,6 +2,8 @@ package com.example.EjercicioSpringBoot.service;
 
 import com.example.EjercicioSpringBoot.model.CuentaBancaria;
 import com.example.EjercicioSpringBoot.repository.CuentaBancariaRepository;
+import com.example.EjercicioSpringBoot.repository.OperacionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +12,11 @@ import java.util.List;
 public class CuentaBancariaService implements ICuentaBancariaService{
 
     private CuentaBancariaRepository cuentaRepository;
+
+    @Autowired
+    public CuentaBancariaService(CuentaBancariaRepository cuentaBancariaRepository) {
+        this.cuentaRepository = cuentaBancariaRepository;
+    }
 
     public List<CuentaBancaria> listarCuentas(){
         return cuentaRepository.findAll();

@@ -8,6 +8,7 @@ import lombok.Data;
 @Entity
 public class CuentaBancaria {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "iban")
     private String iban;
 

@@ -15,6 +15,13 @@ public class InicializacionService implements IInicializacionService{
     @Autowired
     private OperacionRepository operacion;
 
+    @Autowired
+    public InicializacionService(CuentaBancariaRepository cuentaBancariaRepository,
+                                 OperacionRepository operacionRepository) {
+        this.cuentaBancaria = cuentaBancariaRepository;
+        this.operacion = operacionRepository;
+    }
+
     @PostConstruct
     public void inicializar(){
         CuentaBancaria cuenta = new CuentaBancaria();

@@ -4,6 +4,7 @@ import com.example.EjercicioSpringBoot.model.CuentaBancaria;
 import com.example.EjercicioSpringBoot.model.Operacion;
 import com.example.EjercicioSpringBoot.repository.CuentaBancariaRepository;
 import com.example.EjercicioSpringBoot.repository.OperacionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.xml.crypto.Data;
 import java.util.Date;
@@ -11,6 +12,13 @@ import java.util.Date;
 public class TransfereenciaSerevice implements ITransferenicaService{
     private CuentaBancariaRepository cuentaRepository;
     private OperacionRepository operacionRepository;
+
+    @Autowired
+    public TransfereenciaSerevice(CuentaBancariaRepository cuentaBancariaRepository,
+                                 OperacionRepository operacionRepository) {
+        this.cuentaRepository = cuentaBancariaRepository;
+        this.operacionRepository = operacionRepository;
+    }
 
     public void realizarTransferencia(String ibanO, String ibanD, double cantidad) throws Throwable {
         CuentaBancaria cuentaO = (CuentaBancaria) cuentaRepository.findById(ibanO).orElseThrow(() -> new RuntimeException("Cuenta bancaria no encontrada"));;
@@ -38,7 +46,7 @@ public class TransfereenciaSerevice implements ITransferenicaService{
         Operacion operacion = new Operacion();
         operacion.setCuentaO(cuentaO);
         operacion.setCuentaD(cuentaD);
-        operacion.setFecha((Data) new Date());
+        operacion.setFecha(new Date());
         operacion.setCantidad(cantidad);
         operacionRepository.save(operacion);
     }
@@ -52,7 +60,7 @@ public class TransfereenciaSerevice implements ITransferenicaService{
         Operacion operacion = new Operacion();
         operacion.setCuentaD(cuentaD);
         operacion.setCuentaO(cuentaO);
-        operacion.setFecha((Data) new  Date());
+        operacion.setFecha(new  Date());
         operacion.setCantidad(cantidad);
         operacionRepository.save(operacion);
     }
